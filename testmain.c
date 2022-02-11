@@ -403,17 +403,17 @@ void	pixel_put_wall_1(t_data *data, int short_d, int i)
 
 	if (short_d < 0)
 		short_d *= -1;
-	if (data->map.height * 30 / short_d > data->map.height / 2)
-	short_d = data->map.height * 30 / (data->map.height / 2);
+	if (data->map.height * 40 / short_d > data->map.height / 2)
+	short_d = data->map.height * 40 / (data->map.height / 2);
 	j = -1;
-	while (++j < data->map.height * 30 / short_d)
+	while (++j < data->map.height * 40 / short_d)
 	{
 		my_mlx_pixel_put(data, i + data->map.width / 2, data->map.height / 2 + j, 0x00FF0000);
 		my_mlx_pixel_put(data, i + data->map.width / 2, data->map.height / 2 - j, 0x00FF0000);
 	}
 	// if (short_d > 10)
 	// {
-	// 	for (int j = 0; j < data->map.height * 30 / short_d && data->map.height * 30 / short_d < data->map.height / 2; j++)
+	// 	for (int j = 0; j < data->map.height * 40 / short_d && data->map.height * 40 / short_d < data->map.height / 2; j++)
 	// 	{
 	// 		my_mlx_pixel_put(data, i + data->map.width / 2, data->map.height / 2 + j, 0x00FF0000);
 	// 		my_mlx_pixel_put(data, i + data->map.width / 2, data->map.height / 2 - j, 0x00FF0000);
@@ -428,10 +428,10 @@ void	pixel_put_wall_2(t_data *data, int short_d, int i)
 	short_d = short_d * cos(((double)i / (data->map.width / 2)) * (M_PI / 6));
 	if (short_d < 0)
 		short_d *= -1;
-	if (data->map.height * 30 / short_d > data->map.height / 2)
-		short_d = data->map.height * 30 / (data->map.height / 2);
+	if (data->map.height * 40 / short_d > data->map.height / 2)
+		short_d = data->map.height * 40 / (data->map.height / 2);
 	j = -1;
-	while (++j < data->map.height * 30 / short_d)
+	while (++j < data->map.height * 40 / short_d)
 	{
 		my_mlx_pixel_put(data, i + data->map.width / 2, data->map.height / 2 + j, 0x00FF8800);
 		my_mlx_pixel_put(data, i + data->map.width / 2, data->map.height / 2 - j, 0x00FF8800);
@@ -439,7 +439,7 @@ void	pixel_put_wall_2(t_data *data, int short_d, int i)
 	
 	// if (short_d > 10)
 	// {
-	// 	for (int j = 0; j < data->map.height * 30 / short_d && data->map.height * 30 / short_d < data->map.height / 2; j++)
+	// 	for (int j = 0; j < data->map.height * 40 / short_d && data->map.height * 40 / short_d < data->map.height / 2; j++)
 	// 	{
 	// 		my_mlx_pixel_put(data, i + data->map.width / 2, data->map.height / 2 + j, 0x00FF8800);
 	// 		my_mlx_pixel_put(data, i + data->map.width / 2, data->map.height / 2 - j, 0x00FF8800);
@@ -454,17 +454,17 @@ void	remove_pixel_put_wall(t_data *data, int short_d, int i)
 	short_d = short_d * cos(((double)i / (data->map.width / 2)) * (M_PI / 6));
 	if (short_d < 0)
 		short_d *= -1;
-	if (data->map.height * 30 / short_d > data->map.height / 2)
-		short_d = data->map.height * 30 / (data->map.height / 2);
+	if (data->map.height * 40 / short_d > data->map.height / 2)
+		short_d = data->map.height * 40 / (data->map.height / 2);
 	j = -1;
-	while (++j < data->map.height * 30 / short_d)
+	while (++j < data->map.height * 40 / short_d)
 	{
 		my_mlx_pixel_put(data, i + data->map.width / 2, data->map.height / 2 + j, 0x00000000);
 		my_mlx_pixel_put(data, i + data->map.width / 2, data->map.height / 2 - j, 0x00000000);
 	}
 	// if (short_d > 10)
 	// {
-	// 	for (int j = 0; j < data->map.height * 30 / short_d && data->map.height * 30 / short_d < data->map.height / 2; j++)
+	// 	for (int j = 0; j < data->map.height * 40 / short_d && data->map.height * 40 / short_d < data->map.height / 2; j++)
 	// 	{
 	// 		my_mlx_pixel_put(data, i + data->map.width / 2, data->map.height / 2 + j, 0x00000000);
 	// 		my_mlx_pixel_put(data, i + data->map.width / 2, data->map.height / 2 - j, 0x00000000);
