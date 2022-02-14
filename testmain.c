@@ -160,21 +160,21 @@ void	draw_hack(t_data *data, t_player *player, int ga, int color)
 	}
 }
 
+
+
 void	draw_up_down(t_data *data, t_map map)
 {
 	int		i;
 	int		j;
-	int		color;
-
+	
 	i = -1;
 	while (++i < map.width)
 	{
 		j = -1;
 		while(++j < map.height / 2)
 		{
-			color = set_color(j);
-			my_mlx_pixel_put(data, i, map.height / 2 + j, (0xFFFFFF - color));
-			my_mlx_pixel_put(data, i, map.height / 2 - j, 0xFFFFFF - color);
+			my_mlx_pixel_put(data, i, map.height / 2 + j, map.info.f);
+			my_mlx_pixel_put(data, i, map.height / 2 - j, map.info.c);
 		}
 	}
 }
@@ -418,8 +418,8 @@ void	pixel_put_wall_1(t_data *data, double distance, double theta, int i)
 		}
 		else
 		{
-			color_down = data->south.img_data[img_x + BITSIZE * (BITSIZE / 2 + img_y)];
-			color_up = data->south.img_data[img_x + BITSIZE * (BITSIZE / 2 - img_y)];
+			color_down = data->east.img_data[img_x + BITSIZE * (BITSIZE / 2 + img_y)];
+			color_up = data->east.img_data[img_x + BITSIZE * (BITSIZE / 2 - img_y)];
 		}
 		// color_up = set_color(fish);
 		// color_down = set_color(fish);
@@ -442,7 +442,7 @@ void	pixel_put_wall_2(t_data *data, double distance, double theta, int i)
 
 	fish = distance * cos(((double)i / (data->map.width / 2)) * (M_PI / 6));
 
-	img_x = data->wall_x - data->player.x - cos(theta) * distance;
+	img_x = data->wall_x + 64 - data->player.x - cos(theta) * distance;
 	if (fish < 0)
 		fish *= -1;
 	
@@ -451,15 +451,15 @@ void	pixel_put_wall_2(t_data *data, double distance, double theta, int i)
 	{
 		img_y = (double)j * (BITSIZE / 2) / (data->map.height * (BITSIZE / 2) / fish);
 		
-		// printf("img_y:%d", img_y);
 		// for (int k = 0; k < (data->map.height * (BITSIZE / 2) / fish) / BITSIZE; k++)
-		if (cos(theta) > 0)
+		if (sin(theta) > 0)
 		{
-			color_down = data->west.img_data[img_x + BITSIZE * (BITSIZE / 2 + img_y)];
-			color_up = data->west.img_data[img_x + BITSIZE * (BITSIZE / 2 - img_y)];
+			color_down = data->north.img_data[img_x + BITSIZE * (BITSIZE / 2 + img_y)];
+			color_up = data->north.img_data[img_x + BITSIZE * (BITSIZE / 2 - img_y)];
 		}
 		else
 		{
+		// printf("img_x:%d, img_y:%d\ntest: %d, %d\n", img_x, img_y,(img_x + BITSIZE * (BITSIZE / 2 + img_y)), data->south.img_data[img_x + BITSIZE * (BITSIZE / 2 + img_y)]);
 			color_down = data->south.img_data[img_x + BITSIZE * (BITSIZE / 2 + img_y)];
 			color_up = data->south.img_data[img_x + BITSIZE * (BITSIZE / 2 - img_y)];
 		}
@@ -472,7 +472,7 @@ void	pixel_put_wall_2(t_data *data, double distance, double theta, int i)
 	}
 }
 
-// void	pixel_put_wall_2(t_data *data, int short_d, int i)
+// void	pixel_put_wall_2(t_data *data, int short_d, double theta, int i)
 // {
 // 	int		j;
 // 	int		color;
@@ -692,12 +692,19 @@ void	moving(t_data *data, t_player *player)
 	}
 }
 
-void	draw_practice(t_data *data, t_img *west, t_img *south)
+void	img_set(t_data *data)
 {
-	west->img_ptr = mlx_xpm_file_to_image(data->mlx, "./texture/mossy_w.XPM", &west->w, &west->h);
-	west->img_data = (int *)mlx_get_data_addr(west->img_ptr, &west->bpp, &west->line, &west->endian);
-	south->img_ptr = mlx_xpm_file_to_image(data->mlx, "./texture/redbrick.XPM", &south->w, &south->h);
-	south->img_data = (int *)mlx_get_data_addr(south->img_ptr, &south->bpp, &south->line, &south->endian);
+	t_mapinfo info;
+
+	info = data->map.info;
+	data->west.img_ptr = mlx_xpm_file_to_image(data->mlx, info.west, &data->west.w, &data->west.h);
+	data->west.img_data = (int *)mlx_get_data_addr(data->west.img_ptr, &data->west.bpp, &data->west.line, &data->west.endian);
+	data->south.img_ptr = mlx_xpm_file_to_image(data->mlx, info.south, &data->south.w, &data->south.h);
+	data->south.img_data = (int *)mlx_get_data_addr(data->south.img_ptr, &data->south.bpp, &data->south.line, &data->south.endian);
+	data->east.img_ptr = mlx_xpm_file_to_image(data->mlx, info.east, &data->south.w, &data->south.h);
+	data->east.img_data = (int *)mlx_get_data_addr(data->east.img_ptr, &data->east.bpp, &data->east.line, &data->east.endian);
+	data->north.img_ptr = mlx_xpm_file_to_image(data->mlx, info.north, &data->north.w, &data->north.h);
+	data->north.img_data = (int *)mlx_get_data_addr(data->north.img_ptr, &data->north.bpp, &data->north.line, &data->north.endian);
 	int color;
 	// for (int i = 0; i < 10; i++)//west->img_data[i]; i++)
 	// printf("img_data:%x\n", west->img_data[15 + 4 * 64]);
@@ -705,7 +712,7 @@ void	draw_practice(t_data *data, t_img *west, t_img *south)
 	{
 		for (int j = 0; j < BITSIZE; j++)
 		{
-			color = south->img_data[i + BITSIZE * j];
+			color = data->south.img_data[i + BITSIZE * j];
 			my_mlx_pixel_put(data, i, j, color);
 		}
 	}
@@ -722,12 +729,12 @@ int		loop_ft(t_data *data)
 
 	// if (data->frame % 50 == 1)
 	// 	printf("x:%f, y:%f\n", data->player.x, data->player.y);
-
+	img_set(data); // 
 	for(int i = -1 * data->map.width / 2; i < data->map.width / 2; i++)
 	{
 		find_wall(data, data->player, data->player.theta + ((double)i / (data->map.width / 2)) * (M_PI / 6), i);
 	}
-	draw_practice(data, &data->west, &data->south); // 
+	
 	mlx_put_image_to_window(data->mlx, data->win, data->img, 0, 0);
 	// mlx_put_image_to_window(data->mlx, data->win, data->west.img_ptr, 0, 0); // 
 	return (0);
@@ -739,6 +746,7 @@ void	dataset(t_data *data)
 	data->player.right = 0;
 	data->player.up = 0;
 	data->player.down = 0;
+	data->player.dir = 0;
 
 	data->player.color = 0x00FFFF60;
 	data->player.pcolor = 0x00FFFF60;
