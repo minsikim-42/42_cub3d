@@ -6,7 +6,7 @@
 /*   By: minsikim <minsikim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 14:15:00 by ybong             #+#    #+#             */
-/*   Updated: 2022/02/15 14:56:52 by minsikim         ###   ########.fr       */
+/*   Updated: 2022/02/15 15:37:18 by minsikim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,7 @@ void	get_map(t_data *data, char *filename)
 	get_map_info(data, fd);
 	if (isvalid_map(&data->map, &data->player) < 0)
 		map_error("Error\nInvalid map");
-	data->map.width = 1000;
+	data->map.width = 1200;
 	data->map.height = 1000;
 	close(fd);
 }

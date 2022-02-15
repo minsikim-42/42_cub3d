@@ -6,7 +6,7 @@
 /*   By: minsikim <minsikim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/20 15:28:57 by ybong             #+#    #+#             */
-/*   Updated: 2022/02/15 15:19:26 by minsikim         ###   ########.fr       */
+/*   Updated: 2022/02/15 15:35:38 by minsikim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,9 +93,10 @@ int	get_next_line(int fd, char **line)
 
 	if (BUFFER_SIZE <= 0 || fd < 0 || !(line) || fd > FOPEN_MAX)
 		return (-1);
-	enter_idx = 0;
-	while ((readsize = ft_read(readsize, fd, backup)) >= 0)
+	readsize = ft_read(readsize, fd, backup);
+	while ((readsize) >= 0)
 	{
+		readsize = ft_read(readsize, fd, backup);
 		enter_idx = ft_find_enter(backup[fd]);
 		if ((enter_idx) >= 0)
 			return ((ft_split_str(fd, backup, line, enter_idx)));
@@ -106,10 +107,7 @@ int	get_next_line(int fd, char **line)
 			return (0);
 		}
 		if (readsize == 0 && backup[fd] == 0)
-		{
 			*line = ft_strdup("");
-			return (0);
-		}
 	}
-	return (-1);
+	return (0);
 }

@@ -12,7 +12,9 @@ void	get_map_size(t_data *data, char *line, int fd)
 		if (data->map.width < width)
 			data->map.width = width;
 		data->map.height++;
+		free(line);
 	}
+	free(line);
 	close(fd);
 }
 
@@ -56,6 +58,10 @@ int	set_fc(char *fc)
 	r = ft_atoi(arr[0]);
 	g = ft_atoi(arr[1]);
 	b = ft_atoi(arr[2]);
+	free(arr[0]);
+	free(arr[1]);
+	free(arr[2]);
+	free(arr);
 	color = (r << 16 | g << 8 | b);
 	return (color);
 }

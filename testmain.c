@@ -1,5 +1,26 @@
 #include "cub3d.h"
 
+int	free_exit(t_data *data)
+{
+	int		i;
+
+	free(data->map.info.north);
+	free(data->map.info.south);
+	free(data->map.info.west);
+	free(data->map.info.east);
+	free(data->map.info.floor);
+	free(data->map.info.ceiling);
+	i = 0;
+	while (data->map.maparr[i])
+	{
+		free(data->map.maparr[i]);
+		i++;
+	}
+	free(data->map.maparr);
+	system("leaks cub3d");
+	exit(0);
+}
+
 int	tracing(int keycode, t_data *data)
 {
 	if (keycode == 49)
@@ -13,7 +34,9 @@ int	tracing(int keycode, t_data *data)
 	if (keycode == 124)
 		data->player.right = 1;
 	if (keycode == 53)
-		exit(0);
+	{
+		free_exit(data);
+	}
 	return (0);
 }
 
@@ -30,7 +53,9 @@ int	release(int keycode, t_data *data)
 	if (keycode == 124)
 		data->player.right = 0;
 	if (keycode == 53)
-		exit(0);
+	{
+		free_exit(data);
+	}
 	return (0);
 }
 
@@ -39,7 +64,6 @@ int	loop_ft(t_data *data)
 	int		i;
 
 	data->frame++;
-	img_set(data);
 	moving(data, &data->player);
 	draw_up_down(data, data->map);
 	i = -1 * data->map.width / 2;
@@ -64,16 +88,17 @@ int	main(int agc, char *argv[])
 		get_map(&data, argv[1]);
 		data.mlx = mlx_init();
 		data.win = mlx_new_window(data.mlx, \
-			data.map.width, data.map.height, "minsikim_shooting");
+			data.map.width, data.map.height, "cub3D");
 	}
 	else
-		data.win = mlx_new_window(data.mlx, \
-			data.map.width, data.map.height, "minsikim_shooting");
+		map_error("Invalid input");
 	data.img = mlx_new_image(data.mlx, \
 		data.map.width, data.map.height + BITSIZE);
 	data.addr = (int *)mlx_get_data_addr(data.img, \
 		&data.bits_per_pixel, &data.line_length, &data.endian);
+	img_set(&data);
 	mlx_hook(data.win, 2, 1L << 1, tracing, &data);
+	mlx_hook(data.win, 17, 1L << 1, free_exit, &data);
 	mlx_do_key_autorepeaton(data.mlx);
 	mlx_hook(data.win, 3, 1L << 1, release, &data);
 	mlx_loop_hook(data.mlx, loop_ft, &data);

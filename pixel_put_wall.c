@@ -38,6 +38,8 @@ void	wall_2_helper(t_data *data, int i, int j, double theta)
 	{
 		color_down = data->north.img_data[data->img_x \
 			+ BITSIZE * (BITSIZE / 2 + data->img_y)];
+		if (data->pix_fix == 1)
+			data->img_y += 10;
 		color_up = data->north.img_data[data->img_x \
 			+ BITSIZE * (BITSIZE / 2 - data->img_y)];
 	}
@@ -54,7 +56,7 @@ void	wall_2_helper(t_data *data, int i, int j, double theta)
 							data->map.height / 2 - 1 - j, color_up);
 }
 
-void	pixel_put_wall_1(t_data *data, double distance, double theta, int i)
+void	pixel_put_wall_x(t_data *data, double distance, double theta, int i)
 {
 	int		j;
 
@@ -71,7 +73,7 @@ void	pixel_put_wall_1(t_data *data, double distance, double theta, int i)
 	}
 }
 
-void	pixel_put_wall_2(t_data *data, double distance, double theta, int i)
+void	pixel_put_wall_y(t_data *data, double distance, double theta, int i)
 {
 	int		j;
 

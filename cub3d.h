@@ -115,6 +115,7 @@ typedef struct s_data {
 	int			img_x;
 	int			img_y;
 	double		fish;
+	int			pix_fix;
 
 	int			w;
 	int			h;
@@ -130,7 +131,7 @@ typedef struct s_data {
 	float		rotate_speed;
 }				t_data;
 
-void	get_map_info(t_data *data, int fd);
+void	get_map_info(t_data *data, int fd); // map.c
 int		isvalid_map(t_map *map, t_player *player);
 void	get_map(t_data *data, char *filename);
 int		get_map_info_process(t_data *data, int fd, char *line, int i);
@@ -165,8 +166,8 @@ void	while_x3(t_data *data, t_player player, double theta);
 void	while_x4(t_data *data, t_player player, double theta);
 
 // pixel_put_wall.c
-void	pixel_put_wall_1(t_data *data, double distance, double theta, int i);
-void	pixel_put_wall_2(t_data *data, double distance, double theta, int i);
+void	pixel_put_wall_x(t_data *data, double distance, double theta, int i);
+void	pixel_put_wall_y(t_data *data, double distance, double theta, int i);
 void	remove_pixel_put_wall(t_data *data, int short_d, int i);
 
 int		go_stopping(t_map map, t_player player); // moving.c
