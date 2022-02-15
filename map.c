@@ -6,7 +6,7 @@
 /*   By: minsikim <minsikim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 14:15:00 by ybong             #+#    #+#             */
-/*   Updated: 2022/02/14 18:51:28 by minsikim         ###   ########.fr       */
+/*   Updated: 2022/02/15 12:37:04 by minsikim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,27 +109,27 @@ int	isvalid_map_process(t_map *map, char **maparr, int i, int j)
 
 void	set_direction(t_player *player)
 {
-	if (player->dir == 'N') // ㅂㅜㄱ
+	if (player->dir == 'N')
 	{
-		player->theta = 3 * M_PI / 2; //M_PI;
+		player->theta = 3 * M_PI / 2;
 		player->vec_x = 0;
 		player->vec_y = 1;
 	}
-	if (player->dir == 'S') // nam
+	if (player->dir == 'S')
 	{
-		player->theta = M_PI / 2; //M_PI;
+		player->theta = M_PI / 2;
 		player->vec_x = 0;
 		player->vec_y = -1;
 	}
-	if (player->dir == 'E') // dong
+	if (player->dir == 'E')
 	{
-		player->theta = 0; //M_PI;
+		player->theta = 0;
 		player->vec_x = 1;
 		player->vec_y = 0;
 	}
-	if (player->dir == 'W') // seo
+	if (player->dir == 'W')
 	{
-		player->theta = M_PI; //M_PI;
+		player->theta = M_PI;
 		player->vec_x = -1;
 		player->vec_y = 0;
 	}
@@ -198,32 +198,7 @@ void	get_map(t_data *data, char *filename)
 	get_map_info(data, fd);
 	if (isvalid_map(&data->map, &data->player) < 0)
 		map_error("Error\nInvalid map");
-	// { 
-	// 	// for (int i=0; data->map.maparr[i]; i++) //출력 확인
-	// 	// {
-	// 	// 	printf("%s, %d\n", data->map.maparr[i], i);
-	// 	// }
-	// 	printf("current player position: x_%f, y_%f, dir_%c\n", data->player.x, data->player.y, data->player.dir);
-	// 	printf("map.height: %d, width: %d\n", data->map.height, data->map.width);
-	// 	// printf("NO %s\nSO %s\nWE %s\nEA %s\nF %s\nC %s\n", data->map.info.north, data->map.info.south, data->map.info.west, data->map.info.east, data->map.info.floor, data->map.info.ceiling);
-	// }
 	data->map.width = 1000;
 	data->map.height = 1000;
 	close(fd);
 }
-
-// int main(int argc, char *argv[])
-// {
-// 	argc =0;
-// 	t_data data;
-// 	ft_memset(&data, 0, sizeof(t_data));
-// 	get_map(&data, argv[1]);
-	
-// 	// data.mlx = mlx_init();
-// 	// data.win = mlx_new_window(data.mlx, data.map.width * 100, data.map.height * 100 + 100, "minsikim_shooting");
-// 	// mlx_loop(data.mlx); ///SEG
-
-// 	return 0;
-// }
-
-// gcc map.c libft.a libgnl.a
