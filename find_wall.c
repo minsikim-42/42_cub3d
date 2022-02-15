@@ -1,6 +1,6 @@
 #include "cub3d.h"
 
-int		check_quard(double theta)
+int	check_quard(double theta)
 {
 	double	vec_x;
 	double	vec_y;
@@ -11,14 +11,14 @@ int		check_quard(double theta)
 	{
 		if (vec_y >= 0)
 			return (1);
-		else if (vec_y < 0)
+		else
 			return (4);
 	}
 	else
 	{
 		if (vec_y >= 0)
 			return (2);
-		if (vec_y < 0)
+		else
 			return (3);
 	}
 	return (0);
@@ -29,70 +29,63 @@ void	remove_find_wall(t_data *data, t_player player, double theta, int i)
 	int		quard;
 	int		w_x;
 	int		w_y;
-	double	short_d;
 
 	quard = check_quard(theta);
 	if (quard == 1)
 	{
-		short_d = follow_x1(data, player, theta);
-		remove_pixel_put_wall(data, (int)short_d, i);
+		remove_pixel_put_wall(data, follow_x1(data, player, theta), i);
 	}
 	if (quard == 2)
 	{
-		short_d = follow_x2(data, player, theta);
-		remove_pixel_put_wall(data, (int)short_d, i);
+		remove_pixel_put_wall(data, follow_x2(data, player, theta), i);
 	}
 	if (quard == 3)
 	{
-		short_d = follow_x3(data, player, theta);
-		remove_pixel_put_wall(data, (int)short_d, i);
+		remove_pixel_put_wall(data, follow_x3(data, player, theta), i);
 	}
 	if (quard == 4)
 	{
-		short_d = follow_x4(data, player, theta);
-		remove_pixel_put_wall(data, (int)short_d, i);
+		remove_pixel_put_wall(data, follow_x4(data, player, theta), i);
+	}
+}
+
+void	find_wall_34(t_data *data, t_player player, double theta, int i)
+{
+	if (data->quard == 3)
+	{
+		if (data->short_x == 1)
+			pixel_put_wall_1(data, follow_x3(data, player, theta), theta, i);
+		else
+			pixel_put_wall_2(data, follow_x3(data, player, theta), theta, i);
+	}
+	if (data->quard == 4)
+	{
+		if (data->short_x == 1)
+			pixel_put_wall_1(data, follow_x4(data, player, theta), theta, i);
+		else
+			pixel_put_wall_2(data, follow_x4(data, player, theta), theta, i);
 	}
 }
 
 void	find_wall(t_data *data, t_player player, double theta, int i)
 {
-	int		quard;
 	int		w_x;
 	int		w_y;
-	double	short_d;
 
-	quard = check_quard(theta);
-	if (quard == 1)
+	data->quard = check_quard(theta);
+	if (data->quard == 1)
 	{
-		short_d = follow_x1(data, player, theta);
 		if (data->short_x == 1)
-			pixel_put_wall_1(data, short_d, theta, i);
+			pixel_put_wall_1(data, follow_x1(data, player, theta), theta, i);
 		else
-			pixel_put_wall_2(data, short_d, theta, i);
+			pixel_put_wall_2(data, follow_x1(data, player, theta), theta, i);
 	}
-	if (quard == 2)
+	if (data->quard == 2)
 	{
-		short_d = follow_x2(data, player, theta);
-		
 		if (data->short_x == 1)
-			pixel_put_wall_1(data, short_d, theta, i);
+			pixel_put_wall_1(data, follow_x2(data, player, theta), theta, i);
 		else
-			pixel_put_wall_2(data, short_d, theta, i);
+			pixel_put_wall_2(data, follow_x2(data, player, theta), theta, i);
 	}
-	if (quard == 3)
-	{
-		short_d = follow_x3(data, player, theta);
-		if (data->short_x == 1)
-			pixel_put_wall_1(data, short_d, theta, i);
-		else
-			pixel_put_wall_2(data, short_d, theta, i);
-	}
-	if (quard == 4)
-	{
-		short_d = follow_x4(data, player, theta);
-		if (data->short_x == 1)
-			pixel_put_wall_1(data, short_d, theta, i);
-		else
-			pixel_put_wall_2(data, short_d, theta, i);
-	}
+	find_wall_34(data, player, theta, i);
 }
