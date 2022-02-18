@@ -11,12 +11,13 @@ int	free_exit(t_data *data)
 	free(data->map.info.floor);
 	free(data->map.info.ceiling);
 	i = 0;
-	while (data->map.maparr[i])
-	{
-		free(data->map.maparr[i]);
-		i++;
-	}
-	free(data->map.maparr);
+	// while (i < data->map.height && data->map.maparr[i])
+	// {
+	// 	free(data->map.maparr[i]);
+	// 	i++;
+	// }
+	// free(data->map.maparr);
+	// system("leaks cub3d");
 	exit(0);
 }
 

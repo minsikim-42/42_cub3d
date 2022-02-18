@@ -66,6 +66,12 @@ typedef struct s_mapinfo
 	char	*ceiling;
 	int		f;
 	int		c;
+	int		fbool;
+	int		cbool;
+	int		no;
+	int		so;
+	int		we;
+	int		ea;
 }			t_mapinfo;
 
 typedef struct s_map
