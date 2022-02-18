@@ -36,4 +36,5 @@ void	dataset(t_data *data)
 	data->player.move_speed = 3;
 	data->rotate_speed = 0.026;
 	ft_memset((t_map *)&data->map, 0, sizeof(t_map));
+	data->map.maparr = 0;
 }
