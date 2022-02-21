@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3d.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: minsikim <minsikim@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/02/21 12:18:16 by minsikim          #+#    #+#             */
+/*   Updated: 2022/02/21 12:18:20 by minsikim         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 int	free_exit(t_data *data)
@@ -10,14 +22,6 @@ int	free_exit(t_data *data)
 	free(data->map.info.east);
 	free(data->map.info.floor);
 	free(data->map.info.ceiling);
-	i = 0;
-	// while (i < data->map.height && data->map.maparr[i])
-	// {
-	// 	free(data->map.maparr[i]);
-	// 	i++;
-	// }
-	// free(data->map.maparr);
-	// system("leaks cub3d");
 	exit(0);
 }
 

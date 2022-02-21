@@ -8,6 +8,7 @@ OUT = cub3D
 SRC = cub3d.c \
 		map.c \
 		map_util.c \
+		map_get_dir.c \
 		moving.c \
 		stopping.c \
 		pixel_put.c \
@@ -30,8 +31,8 @@ all : $(OUT)
 
 $(OUT) : $(OBJ) $(LIBS)
 	@echo -en 'Assembling ['$(YELLOW)'$@'$(RESET)']... '
-	@gcc -L./minilibx_opengl_20191021 -lmlx -framework OpenGL -framework Appkit $(CFLAGS) -fsanitize=address $(OBJ) -o $(OUT) -L./get_next_line -lgnl -L./libft -lft -I.
-	# @gcc -L./minilibx_opengl_20191021 -lmlx -framework OpenGL -framework Appkit $(CFLAGS) $(OBJ) -o $(OUT) -L./get_next_line -lgnl -L./libft -lft -I.	
+# @gcc -L./minilibx_opengl_20191021 -lmlx -framework OpenGL -framework Appkit $(CFLAGS) -fsanitize=address $(OBJ) -o $(OUT) -L./get_next_line -lgnl -L./libft -lft -I.
+	@gcc -L./minilibx_opengl_20191021 -lmlx -framework OpenGL -framework Appkit $(CFLAGS) $(OBJ) -o $(OUT) -L./get_next_line -lgnl -L./libft -lft -I.	
 	@echo -e $(GREEN)✔$(RESET)
 
 $(OBJ) : $(SRC)
