@@ -6,7 +6,7 @@
 /*   By: minsikim <minsikim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 14:15:00 by ybong             #+#    #+#             */
-/*   Updated: 2022/02/21 12:26:37 by minsikim         ###   ########.fr       */
+/*   Updated: 2022/02/22 18:30:06 by minsikim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,10 @@ int	get_map_info_process(t_data *data, int fd, char *line, int i)
 		data->map.info.cbool++;
 		data->map.info.ceiling = ft_strtrim(line + 1, " ");
 	}
-	else if (*line && ft_strchr("1 ", *line))
+	else if (*line && ft_strchr("01 ", *line))
 		data->map.maparr[i++] = ft_strdup(line);
+	else if (ft_strlen(line) != 0)
+		return (-1);
 	return (i);
 }
 
@@ -73,18 +75,20 @@ int	isvalid_map_process(t_map *map, char **maparr, int i, int j)
 
 	if ((i == 0 || j == 0 \
 	|| i == (map->height - 1) || j == (ft_strlen(maparr[i]) - 1)) \
-	&& !ft_strchr("1 ", maparr[i][j]))
+	&& !(maparr[i][j] == ' ' || maparr[i][j] == '1'))
 		return (-1);
-	if (maparr[i][j] == '0')
+	if (maparr[i][j] == '0' || ft_strchr("NSEW", maparr[i][j]))
 	{
-		k = 0;
-		while (maparr[i - 1][k])
-			k++;
-		u = 0;
-		while (maparr[i + 1][u])
-			u++;
-		if (k < j || u < j || (maparr[i - 1][j] == ' ' || \
-				maparr[i + 1][j] == ' '))
+		k = -1;
+		while (maparr[i - 1][++k])
+			;
+		u = -1;
+		while (maparr[i + 1][++u])
+			;
+		if (k - 1 < j || u - 1 < j || (maparr[i - 1][j] == ' ' || \
+				maparr[i + 1][j] == ' ' || \
+					((j > 0 && maparr[i][j - 1] == ' ') || \
+						maparr[i][j + 1] == ' ')))
 			map_error("Invalid map");
 	}
 	return (0);
@@ -136,7 +140,8 @@ void	get_map(t_data *data, char *filename)
 	if (fd < 0)
 		map_error("Error\nInvalid map");
 	get_map_info(data, fd);
-	if (isvalid_map(&data->map, &data->player) < 0)
+	if (isvalid_map(&data->map, &data->player) < 0 \
+		|| data->player.dir == 0)
 		map_error("Error\nInvalid map");
 	data->map.width = 1200;
 	data->map.height = 1000;

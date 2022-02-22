@@ -6,7 +6,7 @@
 /*   By: minsikim <minsikim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 12:18:16 by minsikim          #+#    #+#             */
-/*   Updated: 2022/02/21 12:18:20 by minsikim         ###   ########.fr       */
+/*   Updated: 2022/02/22 18:35:02 by minsikim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 int	free_exit(t_data *data)
 {
-	int		i;
-
 	free(data->map.info.north);
 	free(data->map.info.south);
 	free(data->map.info.west);
