@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: minsikim <minsikim@student.42.fr>          +#+  +:+       +#+        */
+/*   By: minsikkim <minsikkim@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 12:18:43 by minsikim          #+#    #+#             */
-/*   Updated: 2022/02/21 12:18:44 by minsikim         ###   ########.fr       */
+/*   Updated: 2022/04/21 22:48:00 by minsikkim        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include <stdio.h>
 # include <stdlib.h>
-# include "mlx.h"
+# include "./minilibx_opengl_20191021/mlx.h"
 # include <fcntl.h>
 # include <math.h>
 # include <time.h>
